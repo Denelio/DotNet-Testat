@@ -1,0 +1,208 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Service.Grpc\\AutoReservation.Service.Grpc.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj",
+        "projectName": "AutoReservation.BusinessLayer",
+        "projectPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\Denis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.BusinessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Denis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Dal\\AutoReservation.Dal.csproj": {
+                "projectPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Dal\\AutoReservation.Dal.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Dal\\AutoReservation.Dal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Dal\\AutoReservation.Dal.csproj",
+        "projectName": "AutoReservation.Dal",
+        "projectPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Dal\\AutoReservation.Dal.csproj",
+        "packagesPath": "C:\\Users\\Denis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Dal\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Denis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Service.Grpc\\AutoReservation.Service.Grpc.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Service.Grpc\\AutoReservation.Service.Grpc.csproj",
+        "projectName": "AutoReservation.Service.Grpc",
+        "projectPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Service.Grpc\\AutoReservation.Service.Grpc.csproj",
+        "packagesPath": "C:\\Users\\Denis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.Service.Grpc\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Denis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\Denis\\Documents\\HSR\\Semester3\\.Net_Technologien\\02_Uebungen\\99_Miniprojekt_gRPC\\Vorgabe\\AutoReservation.BusinessLayer\\AutoReservation.BusinessLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.24.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
