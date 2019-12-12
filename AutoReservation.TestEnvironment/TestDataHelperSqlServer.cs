@@ -24,16 +24,16 @@ namespace AutoReservation.TestEnvironment
         protected override void PrepareDatabase()
         {
             // First execution
-            lock (LockObject)
-            {
-                if (_firstTestInExecution)
-                {
-                    Context.Database.EnsureDeleted();
-                    Context.Database.EnsureCreated();
-                    _firstTestInExecution = false;
-                    return;
-                }
-            }
+            //lock (LockObject)
+            //{
+            //    if (_firstTestInExecution)
+            //    {
+            //        Context.Database.EnsureDeleted();
+            //        Context.Database.EnsureCreated();
+            //        _firstTestInExecution = false;
+            //        return;
+            //    }
+            //}
 
             // Subsequent executions
             Context.Database.EnsureCreated();

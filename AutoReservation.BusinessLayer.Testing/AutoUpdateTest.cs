@@ -23,5 +23,17 @@ namespace AutoReservation.BusinessLayer.Testing
             // act
             // assert
         }
+
+        [Fact]
+        public async Task GetAllTest()
+        {
+            //throw new NotImplementedException("Test not implemented.");
+            // arrange
+            // act
+            // assert
+            var result = await _target.GetAll();
+            Assert.Equal(4, result.Count);
+
+        }
     }
 }
