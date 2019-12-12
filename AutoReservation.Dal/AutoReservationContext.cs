@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoReservation.Dal.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoReservation.Dal
 {
