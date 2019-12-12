@@ -25,21 +25,47 @@ namespace AutoReservation.BusinessLayer
         public async Task<Auto> Insert(Auto auto)
         {
             using AutoReservationContext context = new AutoReservationContext();
-            context.Entry(auto).State = EntityState.Added;
-            await context.SaveChangesAsync();
-            return auto;
+            try
+            {
+                context.Entry(auto).State = EntityState.Added;
+                await context.SaveChangesAsync();
+                return auto;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw CreateOptimisticConcurrencyException(context, auto);
+            }
+            
         }
 
         public async Task<Auto> Update(Auto auto)
         {
-            throw new NotImplementedException("Test not implemented.");
+            using AutoReservationContext context = new AutoReservationContext();
+            try
+            {
+                context.Entry(auto).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return auto;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw CreateOptimisticConcurrencyException(context, auto);
+            }
         }
 
         public async Task Delete(Auto auto)
         {
             using AutoReservationContext context = new AutoReservationContext();
-            context.Entry(auto).State = EntityState.Deleted;
-            await context.SaveChangesAsync();
+            try
+            {
+                context.Entry(auto).State = EntityState.Deleted;
+                await context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw CreateOptimisticConcurrencyException(context, auto);
+            }
+            
         }
     }
 }
