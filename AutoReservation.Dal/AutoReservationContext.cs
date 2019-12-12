@@ -10,11 +10,6 @@ namespace AutoReservation.Dal
         public DbSet<Kunde> Kunden { get; set; }
         public DbSet<Reservation> Reservationen { get; set; }
 
-        AutoReservationContext()
-        {
-
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
