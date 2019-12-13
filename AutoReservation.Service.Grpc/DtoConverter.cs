@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoReservation.Dal.Entities;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
+using static AutoReservation.Service.Grpc.AutoDto.Types;
 
 namespace AutoReservation.Service.Grpc
 {
