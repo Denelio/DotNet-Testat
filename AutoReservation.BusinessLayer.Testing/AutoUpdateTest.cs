@@ -19,10 +19,12 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public async Task UpdateAutoTest()
         {
-            var auto = await _target.GetById(4);
-            auto.Marke = "Ferrari";
+            var auto = await _target.GetById(2);
+            auto.Tagestarif = 100;
             await _target.Update(auto);
-            Assert.Equal("Ferrari" , auto.Marke);
+
+            var result = await _target.GetById(2);
+            Assert.Equal(100, result.Tagestarif);
         }
 
         [Fact]

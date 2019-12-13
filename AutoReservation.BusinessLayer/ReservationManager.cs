@@ -28,9 +28,15 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
-                context.Entry(reservation).State = EntityState.Added;
-                await context.SaveChangesAsync();
-                return reservation;
+                if (isReservationValid(reservation))
+                {
+                    context.Entry(reservation).State = EntityState.Added;
+                    await context.SaveChangesAsync();
+                    return reservation;
+                }
+                //throw new InvalidDateRangeException();
+                throw CreateOptimisticConcurrencyException(context, reservation);
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -69,9 +75,9 @@ namespace AutoReservation.BusinessLayer
 
         }
 
-        public async Task<bool> isReservationValid(Reservation reservation)
+        public bool isReservationValid(Reservation reservation)
         {
-            return (reservation.Bis - reservation.Von).TotalHours < 24 && reservation.Bis < reservation.Von;
+            return (reservation.Bis - reservation.Von).TotalHours <= 24 && reservation.Bis < reservation.Von;
         }
     }
 }

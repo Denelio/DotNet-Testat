@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoReservation.Dal.Entities;
 using AutoReservation.TestEnvironment;
 using Xunit;
 
@@ -23,10 +24,14 @@ namespace AutoReservation.BusinessLayer.Testing
             // act
             // assert
 
+            var reservation = await _target.GetById(2);
+            reservation.Von = new DateTime(1981, 05, 05);
+            await _target.Update(reservation);
+
             var result = await _target.GetById(2);
-            DateTime thisDate1 = new DateTime(2020, 1, 10);
-            var resultDate = (result.Bis - result.Von).TotalHours;
-            Assert.Equal(1, resultDate);
+            var time = new DateTime(1981, 05, 05);
+            Assert.Equal(time, result.Von);
+
         }
     }
 }
