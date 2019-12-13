@@ -19,10 +19,6 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public async Task UpdateReservationTest()
         {
-            //throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
 
             var reservation = await _target.GetById(2);
             reservation.Von = new DateTime(1981, 05, 05);

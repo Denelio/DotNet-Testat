@@ -1,4 +1,5 @@
-﻿using AutoReservation.Dal;
+﻿using AutoReservation.BusinessLayer.Exceptions;
+using AutoReservation.Dal;
 using AutoReservation.Dal.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,14 +29,14 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
-                if (isReservationValid(reservation))
+                if (!isReservationValid(reservation))
                 {
-                    context.Entry(reservation).State = EntityState.Added;
-                    await context.SaveChangesAsync();
-                    return reservation;
+                    throw new InvalidDateRangeException();
                 }
-                //throw new InvalidDateRangeException();
-                throw CreateOptimisticConcurrencyException(context, reservation);
+
+                context.Entry(reservation).State = EntityState.Added;
+                await context.SaveChangesAsync();
+                return reservation;
 
             }
             catch (DbUpdateConcurrencyException)
@@ -77,7 +78,12 @@ namespace AutoReservation.BusinessLayer
 
         public bool isReservationValid(Reservation reservation)
         {
-            return (reservation.Bis - reservation.Von).TotalHours <= 24 && reservation.Bis < reservation.Von;
+            return (reservation.Bis - reservation.Von).TotalHours >= 24 & reservation.Von < reservation.Bis;
+        }
+
+        public bool isAvailable(Reservation reservation)
+        {
+            return true;
         }
     }
 }
