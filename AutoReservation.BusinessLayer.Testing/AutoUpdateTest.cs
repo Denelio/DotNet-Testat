@@ -19,19 +19,15 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public async Task UpdateAutoTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var auto = await _target.GetById(4);
+            auto.Marke = "Ferrari";
+            await _target.Update(auto);
+            Assert.Equal("Ferrari" , auto.Marke);
         }
 
         [Fact]
         public async Task GetAllTest()
         {
-            //throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
             var result = await _target.GetAll();
             Assert.Equal(4, result.Count);
 

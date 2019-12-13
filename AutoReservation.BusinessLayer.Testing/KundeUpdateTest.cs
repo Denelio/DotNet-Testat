@@ -18,10 +18,13 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public async Task UpdateKundeTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var kunde = await _target.GetById(1);
+            kunde.Vorname = "Wilma";
+            await _target.Update(kunde);
+
+            var result = await _target.GetById(1);
+            Assert.Equal("Wilma", result.Vorname);
+
         }
     }
 }
