@@ -97,7 +97,7 @@ namespace AutoReservation.BusinessLayer
         public bool isAvailable(Reservation reservation)
         {
             var reservations = GetAll().Result;
-            return reservations.Where(res => res.AutoId == reservation.AutoId).Any(res => res.Bis <= reservation.Von && res.Von >= reservation.Bis);
+            return reservations.Where(res => res.AutoId == reservation.AutoId).Any(res => res.Bis <= reservation.Von || res.Von >= reservation.Bis);
         }
     }
 }
