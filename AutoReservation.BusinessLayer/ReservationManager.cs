@@ -33,6 +33,10 @@ namespace AutoReservation.BusinessLayer
                 {
                     throw new InvalidDateRangeException();
                 }
+                if (!isAvailable(reservation))
+                {
+                    throw new AutoUnavailableException();
+                }
 
                 context.Entry(reservation).State = EntityState.Added;
                 await context.SaveChangesAsync();
@@ -51,6 +55,15 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
+                if (!isReservationValid(reservation))
+                {
+                    throw new InvalidDateRangeException();
+                }
+                if (!isAvailable(reservation))
+                {
+                    throw new AutoUnavailableException();
+                }
+
                 context.Entry(reservation).State = EntityState.Modified;
                 await context.SaveChangesAsync();
                 return reservation;
@@ -78,12 +91,13 @@ namespace AutoReservation.BusinessLayer
 
         public bool isReservationValid(Reservation reservation)
         {
-            return (reservation.Bis - reservation.Von).TotalHours >= 24 & reservation.Von < reservation.Bis;
+            return (reservation.Bis - reservation.Von).TotalHours >= 24 && reservation.Von < reservation.Bis;
         }
 
         public bool isAvailable(Reservation reservation)
         {
-            return true;
+            var reservations = GetAll().Result;
+            return reservations.Where(res => res.AutoId == reservation.AutoId).Any(res => res.Bis <= reservation.Von && res.Von >= reservation.Bis);
         }
     }
 }
