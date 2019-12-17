@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoReservation.Dal.Entities;
 using AutoReservation.TestEnvironment;
 using Xunit;
 
@@ -10,6 +11,14 @@ namespace AutoReservation.BusinessLayer.Testing
     {
         private readonly ReservationManager _target;
 
+        private Reservation _reservation = new Reservation
+        {
+            Von = new DateTime(2020, 3, 10),
+            Bis = new DateTime(2020, 3, 20),
+            AutoId = 2,
+            KundeId = 1
+        };
+
         public ReservationAvailabilityTest()
         {
             _target = new ReservationManager();
@@ -18,100 +27,201 @@ namespace AutoReservation.BusinessLayer.Testing
         [Fact]
         public async Task ScenarioOkay01Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //| ---Date 1--- |
             //               | ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 20),
+                Bis = new DateTime(2020, 3, 30),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.True(result);
+
+
         }
 
         [Fact]
         public async Task ScenarioOkay02Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //| ---Date 1--- |
             //                 | ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 4, 10),
+                Bis = new DateTime(2020, 4, 20),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.True(result);
         }
 
         [Fact]
         public async Task ScenarioOkay03Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //                | ---Date 1--- |
             //| ---Date 2-- - |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 10),
+                Bis = new DateTime(2020, 3, 20),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.True(result);
         }
 
         [Fact]
         public async Task ScenarioOkay04Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //                | ---Date 1--- |
             //| ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 1, 20),
+                Bis = new DateTime(2020, 2, 29),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.True(result);
         }
 
         [Fact]
         public async Task ScenarioNotOkay01Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //| ---Date 1--- |
             //    | ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 17),
+                Bis = new DateTime(2020, 3, 25),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.False(result);
         }
 
         [Fact]
         public async Task ScenarioNotOkay02Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //    | ---Date 1--- |
             //| ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 5),
+                Bis = new DateTime(2020, 3, 15),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.False(result);
         }
 
         [Fact]
         public async Task ScenarioNotOkay03Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //| ---Date 1--- |
             //| --------Date 2-------- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 10),
+                Bis = new DateTime(2020, 3, 30),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.False(result);
         }
 
         [Fact]
         public async Task ScenarioNotOkay04Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //| --------Date 1-------- |
             //| ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 10),
+                Bis = new DateTime(2020, 3, 15),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.False(result);
         }
 
         [Fact]
         public async Task ScenarioNotOkay05Test()
         {
-            throw new NotImplementedException("Test not implemented.");
             // arrange
             //| ---Date 1--- |
             //| ---Date 2--- |
+            Reservation reservation = new Reservation
+            {
+                Von = new DateTime(2020, 3, 10),
+                Bis = new DateTime(2020, 3, 20),
+                AutoId = 2,
+                KundeId = 1
+            };
+
             // act
+            await _target.Insert(_reservation);
+            bool result = _target.IsAvailable(reservation);
+
             // assert
+            Assert.False(result);
         }
     }
 }
