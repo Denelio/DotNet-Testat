@@ -29,11 +29,11 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
-                if (!isReservationValid(reservation))
+                if (!IsReservationValid(reservation))
                 {
                     throw new InvalidDateRangeException();
                 }
-                if (!isAvailable(reservation))
+                if (!IsAvailable(reservation))
                 {
                     throw new AutoUnavailableException();
                 }
@@ -55,11 +55,11 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
-                if (!isReservationValid(reservation))
+                if (!IsReservationValid(reservation))
                 {
                     throw new InvalidDateRangeException();
                 }
-                if (!isAvailable(reservation))
+                if (!IsAvailable(reservation))
                 {
                     throw new AutoUnavailableException();
                 }
@@ -89,15 +89,16 @@ namespace AutoReservation.BusinessLayer
 
         }
 
-        public bool isReservationValid(Reservation reservation)
+        //public durch test requirements --> bessere Lösung?
+        public bool IsReservationValid(Reservation reservation)
         {
             return (reservation.Bis - reservation.Von).TotalHours >= 24 && reservation.Von < reservation.Bis;
         }
 
-        public bool isAvailable(Reservation reservation)
+        public bool IsAvailable(Reservation reservation)
         {
             var reservations = GetAll().Result;
-            return reservations.Where(res => res.AutoId == reservation.AutoId).Any(res => res.Bis <= reservation.Von && res.Von >= reservation.Bis);
+            return reservations.Where(res => res.AutoId == reservation.AutoId).Any(res => res.Bis <= reservation.Von || res.Von >= reservation.Bis);
         }
     }
 }
