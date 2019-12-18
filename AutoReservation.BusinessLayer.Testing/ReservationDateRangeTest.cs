@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AutoReservation.Dal.Entities;
 using AutoReservation.TestEnvironment;
 using Xunit;
@@ -16,7 +17,7 @@ namespace AutoReservation.BusinessLayer.Testing
         }
 
         [Fact]
-        public void ScenarioOkay01TestAsync()
+        public async Task ScenarioOkay01TestAsync()
         {
             Reservation reservation = new Reservation
             {
@@ -26,11 +27,11 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.True(_target.IsReservationValid(reservation).Result);
+            Assert.True(await _target.IsReservationValid(reservation));
         }
 
         [Fact]
-        public void ScenarioOkay02Test()
+        public async Task ScenarioOkay02Test()
         {
             Reservation reservation = new Reservation
             {
@@ -40,12 +41,12 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.True(_target.IsReservationValid(reservation).Result);
+            Assert.True(await _target.IsReservationValid(reservation));
 
         }
 
         [Fact]
-        public void ScenarioNotOkay01Test()
+        public async Task ScenarioNotOkay01Test()
         {
             Reservation reservation = new Reservation
             {
@@ -55,12 +56,12 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.False(_target.IsReservationValid(reservation).Result);
+            Assert.False(await _target.IsReservationValid(reservation));
 
         }
 
         [Fact]
-        public void ScenarioNotOkay02Test()
+        public async Task ScenarioNotOkay02Test()
         {
             Reservation reservation = new Reservation
             {
@@ -70,11 +71,11 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.False(_target.IsReservationValid(reservation).Result);
+            Assert.False(await _target.IsReservationValid(reservation));
         }
 
         [Fact]
-        public void ScenarioNotOkay03Test()
+        public async Task ScenarioNotOkay03Test()
         {
             Reservation reservation = new Reservation
             {
@@ -84,7 +85,7 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.False(_target.IsReservationValid(reservation).Result);
+            Assert.False(await _target.IsReservationValid(reservation));
         }
     }
 }
