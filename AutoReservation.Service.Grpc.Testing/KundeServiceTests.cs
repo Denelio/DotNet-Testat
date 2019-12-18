@@ -21,14 +21,14 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task GetKundenTest()
         {
-            var result = _target.GetAll(new Empty());
+            var result = await _target.GetAllAsync(new Empty());
             Assert.Equal(4, result.Kunde.Count);
         }
 
         [Fact]
         public async Task GetKundeByIdTest()
         {
-            var result = _target.GetById(new GetKundeByIdRequest { Id = 1 });
+            var result = await _target.GetByIdAsync(new GetKundeByIdRequest { Id = 1 });
             Assert.Equal(1, result.Id);
             Assert.Equal("Anna", result.Vorname);
             Assert.Equal("Nass", result.Nachname);
@@ -45,7 +45,7 @@ namespace AutoReservation.Service.Grpc.Testing
         {
             var kundeDto = new KundeDto { Geburtsdatum = new DateTime(1807, 12, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(), Vorname = "Banuel", Nachname = "Mauer" };
 
-            var kunde = _target.Insert(kundeDto);
+            var kunde = await _target.InsertAsync(kundeDto);
 
             Assert.Equal(kundeDto.Vorname, kunde.Vorname);
             Assert.Equal(kundeDto.Nachname, kunde.Nachname);
@@ -56,7 +56,7 @@ namespace AutoReservation.Service.Grpc.Testing
         public async Task DeleteKundeTest()
         {
             var kundeRequest = new GetKundeByIdRequest { Id = 1 };
-            var kunde = _target.GetById(kundeRequest);
+            var kunde = await _target.GetByIdAsync(kundeRequest);
             _target.Delete(kunde);
             Assert.Throws<RpcException>(() => _target.GetById(kundeRequest));
         }
@@ -64,7 +64,7 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task UpdateKundeTest()
         {
-            var kunde = _target.GetById(new GetKundeByIdRequest { Id = 1 });
+            var kunde = await _target.GetByIdAsync(new GetKundeByIdRequest { Id = 1 });
             kunde.Vorname = "JuanPabloFernandezRodriguezPaeliaTorres";
             var updatedKunde = _target.Update(kunde);
             Assert.Equal(kunde.Vorname, updatedKunde.Vorname);
@@ -73,13 +73,13 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task UpdateKundeWithOptimisticConcurrencyTest()
         {
-            var kunde = _target.GetById(new GetKundeByIdRequest { Id = 1 });
+            var kunde = await _target.GetByIdAsync(new GetKundeByIdRequest { Id = 1 });
             var kunde2 = kunde;
 
             kunde.Vorname = "Wilfried";
             kunde2.Vorname = "Sigismund";
 
-            _target.Update(kunde);
+            await _target.UpdateAsync(kunde);
 
             Assert.Throws<RpcException>(() => _target.Update(kunde2));
         }

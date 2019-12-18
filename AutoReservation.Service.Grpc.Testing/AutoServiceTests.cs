@@ -23,14 +23,14 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task GetAutosTest()
         {
-            var result = _target.GetAll(new Empty());
+            var result = await _target.GetAllAsync(new Empty());
             Assert.Equal(4, result.Auto.Count);
         }
 
         [Fact]
         public async Task GetAutoByIdTest()
         {
-            var result = _target.GetById(new GetAutoByIdRequest { Id = 1 });
+            var result = await _target.GetByIdAsync(new GetAutoByIdRequest { Id = 1 });
             Assert.Equal(1, result.Id);
             Assert.Equal("Fiat Punto", result.Marke);
             Assert.Equal(50, result.Tagestarif);
@@ -48,7 +48,7 @@ namespace AutoReservation.Service.Grpc.Testing
         {
             var autoDto = new AutoDto { AutoKlasse = AutoKlasse.Luxusklasse, Basistarif = 2077, Marke = "Cybertruck", Tagestarif = 2077 };
 
-            var auto = _target.Insert(autoDto);
+            var auto = await _target.InsertAsync(autoDto);
 
             Assert.Equal(autoDto.AutoKlasse, auto.AutoKlasse);
             Assert.Equal(autoDto.Basistarif, auto.Basistarif);
@@ -60,7 +60,7 @@ namespace AutoReservation.Service.Grpc.Testing
         public async Task DeleteAutoTest()
         {
             var autoRequest = new GetAutoByIdRequest { Id = 1 };
-            var auto = _target.GetById(autoRequest);
+            var auto = await _target.GetByIdAsync(autoRequest);
             _target.Delete(auto);
             Assert.Throws<RpcException>(() => _target.GetById(autoRequest));
         }
@@ -68,7 +68,7 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task UpdateAutoTest()
         {
-            var auto = _target.GetById(new GetAutoByIdRequest { Id = 1 });
+            var auto = await _target.GetByIdAsync(new GetAutoByIdRequest { Id = 1 });
             auto.Marke = "Cybertruck";
             var updatedAuto = _target.Update(auto);
             Assert.Equal(auto.Marke, updatedAuto.Marke);
@@ -77,13 +77,13 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task UpdateAutoWithOptimisticConcurrencyTest()
         {
-            var auto = _target.GetById(new GetAutoByIdRequest { Id = 1 });
+            var auto = await _target.GetByIdAsync(new GetAutoByIdRequest { Id = 1 });
             var auto2 = auto;
 
             auto.Tagestarif = 100;
             auto2.Tagestarif = 200;
 
-            _target.Update(auto);
+            await _target.UpdateAsync(auto);
 
             Assert.Throws<RpcException>(() => _target.Update(auto2));
         }
