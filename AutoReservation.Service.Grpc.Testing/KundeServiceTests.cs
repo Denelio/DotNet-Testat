@@ -43,12 +43,13 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task InsertKundeTest()
         {
-            var kundeDto = new KundeDto { Geburtsdatum = new Timestamp(), Vorname = "Banuel", Nachname = "Mauer" };
+            var kundeDto = new KundeDto { Geburtsdatum = new DateTime(1807, 12, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(), Vorname = "Banuel", Nachname = "Mauer" };
 
             var kunde = _target.Insert(kundeDto);
 
             Assert.Equal(kundeDto.Vorname, kunde.Vorname);
             Assert.Equal(kundeDto.Nachname, kunde.Nachname);
+            Assert.Equal(kundeDto.Geburtsdatum, kunde.Geburtsdatum);
         }
 
         [Fact]

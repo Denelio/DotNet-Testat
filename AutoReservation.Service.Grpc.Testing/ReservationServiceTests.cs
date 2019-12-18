@@ -4,6 +4,7 @@ using AutoReservation.Service.Grpc.Testing.Common;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Xunit;
+using static AutoReservation.Service.Grpc.AutoDto.Types;
 
 namespace AutoReservation.Service.Grpc.Testing
 {
@@ -25,55 +26,58 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task GetReservationenTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var result = _target.GetAll(new Empty());
+            Assert.Equal(4, result.Reservation.Count);
         }
 
         [Fact]
         public async Task GetReservationByIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var result = _target.GetById(new GetReservationByIdRequest { Id = 1 });
+            Assert.Equal(1, result.ReservationsNr);
         }
 
         [Fact]
         public async Task GetReservationByIdWithIllegalIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            Assert.Throws<RpcException>(() => _target.GetById(new GetReservationByIdRequest { Id = 42 }));
         }
 
         [Fact]
         public async Task InsertReservationTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            AutoDto autoDto = _autoClient.GetById(new GetAutoByIdRequest { Id = 4 });
+            KundeDto kundeDto = _kundeClient.GetById(new GetKundeByIdRequest { Id = 1 });
+            ReservationDto reservationDto = new ReservationDto
+            {
+                Von = new DateTime(1807, 11, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                Bis = new DateTime(1807, 12, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                RowVersion = Google.Protobuf.ByteString.CopyFromUtf8(""),
+                Auto = autoDto,
+                Kunde = kundeDto
+            };
+            ReservationDto reservation = _target.Insert(reservationDto);
+            ReservationDto reservationFromDb = _target.GetById(new GetReservationByIdRequest { Id = 5 });
+
+            Assert.Equal(reservation, reservationFromDb);
         }
 
         [Fact]
         public async Task DeleteReservationTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var reservationRequest = new GetReservationByIdRequest { Id = 2 };
+            var reservation = _target.GetById(reservationRequest);
+            _target.Delete(reservation);
+            Assert.Throws<RpcException>(() => _target.GetById(reservationRequest));
         }
 
         [Fact]
         public async Task UpdateReservationTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var reservation = _target.GetById(new GetReservationByIdRequest { Id = 1 });
+            reservation.Bis = new DateTime(2100, 11, 1, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
+            var updatedReservation = _target.Update(reservation);
+            Assert.Equal(reservation.Bis, updatedReservation.Bis);
         }
 
         [Fact]
