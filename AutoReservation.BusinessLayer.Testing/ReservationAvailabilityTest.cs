@@ -40,10 +40,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.True(result);
+            Assert.False(result);
 
 
         }
@@ -64,10 +64,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.True(result);
+            Assert.False(result);
         }
 
         [Fact]
@@ -86,10 +86,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.True(result);
+            Assert.False(result);
         }
 
         [Fact]
@@ -108,10 +108,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.True(result);
+            Assert.False(result);
         }
 
         [Fact]
@@ -130,10 +130,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.False(result);
+            Assert.True(result);
         }
 
         [Fact]
@@ -152,10 +152,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.False(result);
+            Assert.True(result);
         }
 
         [Fact]
@@ -174,10 +174,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.False(result);
+            Assert.True(result);
         }
 
         [Fact]
@@ -196,10 +196,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.False(result);
+            Assert.True(result);
         }
 
         [Fact]
@@ -218,10 +218,10 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.IsAvailable(reservation);
+            bool result = _target.HasColisiion(reservation);
 
             // assert
-            Assert.False(result);
+            Assert.True(result);
         }
     }
 }

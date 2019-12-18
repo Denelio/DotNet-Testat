@@ -33,7 +33,7 @@ namespace AutoReservation.BusinessLayer
                 {
                     throw new InvalidDateRangeException();
                 }
-                if (!IsAvailable(reservation))
+                if (HasColisiion(reservation))
                 {
                     throw new AutoUnavailableException();
                 }
@@ -59,7 +59,7 @@ namespace AutoReservation.BusinessLayer
                 {
                     throw new InvalidDateRangeException();
                 }
-                if (!IsAvailable(reservation))
+                if (HasColisiion(reservation))
                 {
                     throw new AutoUnavailableException();
                 }
@@ -95,10 +95,10 @@ namespace AutoReservation.BusinessLayer
             return (reservation.Bis - reservation.Von).TotalHours >= 24 && reservation.Von < reservation.Bis;
         }
 
-        public bool IsAvailable(Reservation reservation)
+        public bool HasColisiion(Reservation reservation)
         {
             var reservations = GetAll().Result;
-            return !reservations.Where(r => r.AutoId == reservation.AutoId && 
+            return reservations.Where(r => r.AutoId == reservation.AutoId && 
             ((r.Von < reservation.Von && r.Bis > reservation.Von) 
             || (r.Von < reservation.Bis && r.Bis > reservation.Bis) 
             || (r.Von == reservation.Von))).Any();
