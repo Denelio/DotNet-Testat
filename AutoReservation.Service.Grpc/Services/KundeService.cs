@@ -39,25 +39,46 @@ namespace AutoReservation.Service.Grpc.Services
 
         public override async Task<KundeDto> Insert(KundeDto request, ServerCallContext context)
         {
-            KundeManager manager = new KundeManager();
-            Kunde kunde = await manager.Insert(request.ConvertToEntity());
-            KundeDto result = kunde.ConvertToDto();
-            return result;
+            try
+            {
+                KundeManager manager = new KundeManager();
+                Kunde kunde = await manager.Insert(request.ConvertToEntity());
+                KundeDto result = kunde.ConvertToDto();
+                return result;
+            }
+            catch (BusinessLayer.Exceptions.OptimisticConcurrencyException<Auto> e)
+            {
+                throw new RpcException(new Status(StatusCode.Aborted, e.Message));
+            }
         }
 
         public override async Task<KundeDto> Update(KundeDto request, ServerCallContext context)
         {
-            KundeManager manager = new KundeManager();
-            Kunde kunde = await manager.Update(request.ConvertToEntity());
-            KundeDto result = kunde.ConvertToDto();
-            return result;
+            try
+            {
+                KundeManager manager = new KundeManager();
+                Kunde kunde = await manager.Update(request.ConvertToEntity());
+                KundeDto result = kunde.ConvertToDto();
+                return result;
+            }
+            catch (BusinessLayer.Exceptions.OptimisticConcurrencyException<Auto> e)
+            {
+                throw new RpcException(new Status(StatusCode.Aborted, e.Message));
+            }
         }
 
         public override async Task<Empty> Delete(KundeDto request, ServerCallContext context)
         {
-            KundeManager manager = new KundeManager();
-            await manager.Delete(request.ConvertToEntity());
-            return new Empty();
+            try
+            {
+                KundeManager manager = new KundeManager();
+                await manager.Delete(request.ConvertToEntity());
+                return new Empty();
+            }
+            catch (BusinessLayer.Exceptions.OptimisticConcurrencyException<Auto> e)
+            {
+                throw new RpcException(new Status(StatusCode.Aborted, e.Message));
+            }
         }
     }
 }

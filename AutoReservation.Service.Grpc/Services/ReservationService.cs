@@ -3,6 +3,7 @@ using AutoReservation.Dal.Entities;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -39,25 +40,46 @@ namespace AutoReservation.Service.Grpc.Services
 
         public override async Task<ReservationDto> Insert(ReservationDto request, ServerCallContext context)
         {
-            ReservationManager manager = new ReservationManager();
-            Reservation reservation = await manager.Insert(request.ConvertToEntity());
-            ReservationDto result = reservation.ConvertToDto();
-            return result;
+            try
+            {
+                ReservationManager manager = new ReservationManager();
+                Reservation reservation = await manager.Insert(request.ConvertToEntity());
+                ReservationDto result = reservation.ConvertToDto();
+                return result;
+            }
+            catch(Exception e)
+            {
+                throw new RpcException(new Status(StatusCode.Aborted, e.Message));
+            }
         }
 
         public override async Task<ReservationDto> Update(ReservationDto request, ServerCallContext context)
         {
-            ReservationManager manager = new ReservationManager();
-            Reservation reservation = await manager.Update(request.ConvertToEntity());
-            ReservationDto result = reservation.ConvertToDto();
-            return result;
+            try
+            {
+                ReservationManager manager = new ReservationManager();
+                Reservation reservation = await manager.Update(request.ConvertToEntity());
+                ReservationDto result = reservation.ConvertToDto();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new RpcException(new Status(StatusCode.Aborted, e.Message));
+            }
         }
 
         public override async Task<Empty> Delete(ReservationDto request, ServerCallContext context)
         {
-            ReservationManager manager = new ReservationManager();
-            await manager.Delete(request.ConvertToEntity());
-            return new Empty();
+            try
+            {
+                ReservationManager manager = new ReservationManager();
+                await manager.Delete(request.ConvertToEntity());
+                return new Empty();
+            }
+            catch (Exception e)
+            {
+                throw new RpcException(new Status(StatusCode.Aborted, e.Message));
+            }
         }
     }
 }
