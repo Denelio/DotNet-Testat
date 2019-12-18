@@ -23,7 +23,7 @@ namespace AutoReservation.Service.Grpc.Services
             ReservationManager manager = new ReservationManager();
             Reservation reservation = await manager.GetById(request.Id);
             ReservationDto result = reservation.ConvertToDto();
-            return result;
+            return await Task.FromResult(result);
         }
 
         public override async Task<AllReservations> GetAll(Empty request, ServerCallContext context)
@@ -35,7 +35,7 @@ namespace AutoReservation.Service.Grpc.Services
             {
                 allReservationDto.Reservation.Add(k.ConvertToDto());
             }
-            return allReservationDto;
+            return await Task.FromResult(allReservationDto);
         }
 
         public override async Task<ReservationDto> Insert(ReservationDto request, ServerCallContext context)
@@ -45,7 +45,7 @@ namespace AutoReservation.Service.Grpc.Services
                 ReservationManager manager = new ReservationManager();
                 Reservation reservation = await manager.Insert(request.ConvertToEntity());
                 ReservationDto result = reservation.ConvertToDto();
-                return result;
+                return await Task.FromResult(result);
             }
             catch(Exception e)
             {
@@ -60,7 +60,7 @@ namespace AutoReservation.Service.Grpc.Services
                 ReservationManager manager = new ReservationManager();
                 Reservation reservation = await manager.Update(request.ConvertToEntity());
                 ReservationDto result = reservation.ConvertToDto();
-                return result;
+                return await Task.FromResult(result);
             }
             catch (Exception e)
             {
@@ -74,7 +74,7 @@ namespace AutoReservation.Service.Grpc.Services
             {
                 ReservationManager manager = new ReservationManager();
                 await manager.Delete(request.ConvertToEntity());
-                return new Empty();
+                return await Task.FromResult(new Empty());
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ namespace AutoReservation.Service.Grpc.Services
             ReservationManager manager = new ReservationManager();
             var reservation = request.ConvertToEntity();
             bool isReservationValid = await manager.IsReservationValid(reservation);
-            return new GetCarAvailability { IsAvailable = isReservationValid };
+            return await Task.FromResult(new GetCarAvailability { IsAvailable = isReservationValid });
         }
     }
 }
