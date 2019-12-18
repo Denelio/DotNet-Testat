@@ -81,5 +81,13 @@ namespace AutoReservation.Service.Grpc.Services
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }
         }
+
+        public override async Task<GetCarAvailability> CarAvailability(ReservationDto request, ServerCallContext context)
+        {
+            ReservationManager manager = new ReservationManager();
+            var reservation = request.ConvertToEntity();
+            bool isReservationValid = await manager.IsReservationValid(reservation);
+            return new GetCarAvailability { IsAvailable = isReservationValid };
+        }
     }
 }

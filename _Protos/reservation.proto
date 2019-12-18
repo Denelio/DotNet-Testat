@@ -15,6 +15,7 @@ service ReservationService {
     rpc Insert(ReservationDto) returns(ReservationDto);
     rpc Update(ReservationDto) returns(ReservationDto);
     rpc Delete(ReservationDto) returns(google.protobuf.Empty);
+    rpc CarAvailability(ReservationDto) returns(GetCarAvailability);
 }
 
 message AllReservations {
@@ -23,6 +24,10 @@ message AllReservations {
 
 message GetReservationByIdRequest {
     int32 id = 1;
+}
+
+message GetCarAvailability{
+    bool isAvailable = 1;
 }
 
 message ReservationDto {
