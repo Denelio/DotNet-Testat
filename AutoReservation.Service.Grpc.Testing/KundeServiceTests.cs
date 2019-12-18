@@ -21,64 +21,66 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task GetKundenTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var result = _target.GetAll(new Empty());
+            Assert.Equal(4, result.Kunde.Count);
         }
 
         [Fact]
         public async Task GetKundeByIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var result = _target.GetById(new GetKundeByIdRequest { Id = 1 });
+            Assert.Equal(1, result.Id);
+            Assert.Equal("Anna", result.Vorname);
+            Assert.Equal("Nass", result.Nachname);
         }
 
         [Fact]
         public async Task GetKundeByIdWithIllegalIdTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            Assert.Throws<RpcException>(() => _target.GetById(new GetKundeByIdRequest { Id = 42 }));
         }
 
         [Fact]
         public async Task InsertKundeTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var kundeDto = new KundeDto { Geburtsdatum = new Timestamp(), Vorname = "Banuel", Nachname = "Mauer" };
+
+            var kunde = _target.Insert(kundeDto);
+
+            Assert.Equal(kundeDto.Vorname, kunde.Vorname);
+            Assert.Equal(kundeDto.Nachname, kunde.Nachname);
         }
 
         [Fact]
         public async Task DeleteKundeTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var kundeRequest = new GetKundeByIdRequest { Id = 1 };
+            var kunde = _target.GetById(kundeRequest);
+            _target.Delete(kunde);
+            Assert.Throws<RpcException>(() => _target.GetById(kundeRequest));
         }
 
         [Fact]
         public async Task UpdateKundeTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var kunde = _target.GetById(new GetKundeByIdRequest { Id = 1 });
+            kunde.Vorname = "JuanPabloFernandezRodriguezPaeliaTorres";
+            var updatedKunde = _target.Update(kunde);
+            Assert.Equal(kunde.Vorname, updatedKunde.Vorname);
         }
 
         [Fact]
         public async Task UpdateKundeWithOptimisticConcurrencyTest()
         {
-            throw new NotImplementedException("Test not implemented.");
-            // arrange
-            // act
-            // assert
+            var kunde = _target.GetById(new GetKundeByIdRequest { Id = 1 });
+            var kunde2 = kunde;
+
+            kunde.Vorname = "Wilfried";
+            kunde2.Vorname = "Sigismund";
+
+            _target.Update(kunde);
+
+            Assert.Throws<RpcException>(() => _target.Update(kunde2));
         }
     }
 }
