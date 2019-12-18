@@ -78,8 +78,8 @@ namespace AutoReservation.BusinessLayer.Testing
             //| ---Date 2-- - |
             Reservation reservation = new Reservation
             {
-                Von = new DateTime(2020, 3, 10),
-                Bis = new DateTime(2020, 3, 20),
+                Von = new DateTime(2020, 3, 1),
+                Bis = new DateTime(2020, 3, 10),
                 AutoId = 2,
                 KundeId = 1
             };
