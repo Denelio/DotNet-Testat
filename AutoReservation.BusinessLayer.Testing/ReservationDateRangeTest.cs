@@ -26,7 +26,7 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.True(_target.IsReservationValid(reservation));
+            Assert.True(_target.IsReservationValid(reservation).Result);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.True(_target.IsReservationValid(reservation));
+            Assert.True(_target.IsReservationValid(reservation).Result);
 
         }
 
@@ -55,7 +55,7 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.False(_target.IsReservationValid(reservation));
+            Assert.False(_target.IsReservationValid(reservation).Result);
 
         }
 
@@ -70,7 +70,7 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.False(_target.IsReservationValid(reservation));
+            Assert.False(_target.IsReservationValid(reservation).Result);
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace AutoReservation.BusinessLayer.Testing
                 KundeId = 1
             };
 
-            Assert.False(_target.IsReservationValid(reservation));
+            Assert.False(_target.IsReservationValid(reservation).Result);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
-                if (!IsReservationValid(reservation))
+                if (!await IsReservationValid(reservation))
                 {
                     throw new InvalidDateRangeException();
                 }
@@ -55,7 +55,7 @@ namespace AutoReservation.BusinessLayer
             using AutoReservationContext context = new AutoReservationContext();
             try
             {
-                if (!IsReservationValid(reservation))
+                if (!await IsReservationValid(reservation))
                 {
                     throw new InvalidDateRangeException();
                 }
@@ -90,7 +90,7 @@ namespace AutoReservation.BusinessLayer
         }
 
         //public durch test requirements --> bessere Lösung?
-        public bool IsReservationValid(Reservation reservation)
+        public async Task<bool> IsReservationValid(Reservation reservation)
         {
             return (reservation.Bis - reservation.Von).TotalHours >= 24 && reservation.Von < reservation.Bis;
         }
