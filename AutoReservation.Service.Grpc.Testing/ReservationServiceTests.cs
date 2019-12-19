@@ -78,7 +78,6 @@ namespace AutoReservation.Service.Grpc.Testing
         public async Task UpdateReservationTest()
         {
             var reservation = await _target.GetByIdAsync(new GetReservationByIdRequest { Id = 3 });
-            reservation.Von = new DateTime(2020, 1, 20, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
             reservation.Bis = new DateTime(2020, 1, 30, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
             var updatedReservation = await _target.UpdateAsync(reservation);
             Assert.Equal(reservation.Bis, updatedReservation.Bis);
@@ -145,7 +144,7 @@ namespace AutoReservation.Service.Grpc.Testing
         {
             var reservation = await _target.GetByIdAsync(new GetReservationByIdRequest { Id = 1 });
 
-            reservation.Von = new DateTime(2020, 1, 11, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
+            reservation.Von = new DateTime(2020, 5, 20, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
 
             Assert.Throws<RpcException>(() => _target.Update(reservation));
         }
@@ -157,8 +156,8 @@ namespace AutoReservation.Service.Grpc.Testing
             KundeDto kundeDto = await _kundeClient.GetByIdAsync(new GetKundeByIdRequest { Id = 1 });
             ReservationDto reservationDto = new ReservationDto
             {
-                Von = new DateTime(1807, 1, 11, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
-                Bis = new DateTime(1807, 1, 14, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                Von = new DateTime(2100, 1, 11, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                Bis = new DateTime(2100, 1, 14, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 RowVersion = Google.Protobuf.ByteString.CopyFromUtf8(""),
                 Auto = autoDto,
                 Kunde = kundeDto
@@ -174,8 +173,8 @@ namespace AutoReservation.Service.Grpc.Testing
             KundeDto kundeDto = await _kundeClient.GetByIdAsync(new GetKundeByIdRequest { Id = 1 });
             ReservationDto reservationDto = new ReservationDto
             {
-                Von = new DateTime(2020, 1, 10, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
-                Bis = new DateTime(2020, 1, 12, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                Von = new DateTime(2020, 1, 30, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                Bis = new DateTime(2020, 1, 20, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 RowVersion = Google.Protobuf.ByteString.CopyFromUtf8(""),
                 Auto = autoDto,
                 Kunde = kundeDto

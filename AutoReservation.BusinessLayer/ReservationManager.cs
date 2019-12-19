@@ -97,7 +97,7 @@ namespace AutoReservation.BusinessLayer
         public bool HasCollision(Reservation reservation)
         {
             using var context = new AutoReservationContext();
-            return context.Reservationen.Any(r => r.AutoId == reservation.AutoId &&
+            return context.Reservationen.Where(r => r.ReservationsNr != reservation.ReservationsNr).Any(r => r.AutoId == reservation.AutoId &&
             ((r.Von < reservation.Von && r.Bis > reservation.Von)
             || (r.Von < reservation.Bis && r.Bis > reservation.Bis)
             || (r.Von == reservation.Von)));
