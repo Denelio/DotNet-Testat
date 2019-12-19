@@ -15,13 +15,13 @@ namespace AutoReservation.BusinessLayer
         public async Task<List<Reservation>> GetAll()
         {
             using AutoReservationContext context = new AutoReservationContext();
-            return await context.Reservationen.ToListAsync();
+            return await context.Reservationen.Include(r => r.Auto).Include(r => r.Kunde).ToListAsync();
         }
 
         public async Task<Reservation> GetById(int i)
         {
             using AutoReservationContext context = new AutoReservationContext();
-            return await context.Reservationen.SingleOrDefaultAsync(r => r.ReservationsNr == i);
+            return await context.Reservationen.Include(r => r.Auto).Include(r => r.Kunde).SingleOrDefaultAsync(r => r.ReservationsNr == i);
         }
 
         public async Task<Reservation> Insert(Reservation reservation)
@@ -33,15 +33,14 @@ namespace AutoReservation.BusinessLayer
                 {
                     throw new InvalidDateRangeException();
                 }
-                if (HasColisiion(reservation))
+                if (HasCollision(reservation))
                 {
                     throw new AutoUnavailableException();
                 }
 
                 context.Entry(reservation).State = EntityState.Added;
                 await context.SaveChangesAsync();
-                return reservation;
-
+                return await context.Reservationen.Include(r => r.Auto).Include(r => r.Kunde).SingleOrDefaultAsync(r => r.ReservationsNr == reservation.ReservationsNr);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -59,7 +58,7 @@ namespace AutoReservation.BusinessLayer
                 {
                     throw new InvalidDateRangeException();
                 }
-                if (HasColisiion(reservation))
+                if (HasCollision(reservation))
                 {
                     throw new AutoUnavailableException();
                 }
@@ -95,13 +94,13 @@ namespace AutoReservation.BusinessLayer
             return (reservation.Bis - reservation.Von).TotalHours >= 24 && reservation.Von < reservation.Bis;
         }
 
-        public bool HasColisiion(Reservation reservation)
+        public bool HasCollision(Reservation reservation)
         {
-            var reservations = GetAll().Result;
-            return reservations.Where(r => r.AutoId == reservation.AutoId && 
-            ((r.Von < reservation.Von && r.Bis > reservation.Von) 
-            || (r.Von < reservation.Bis && r.Bis > reservation.Bis) 
-            || (r.Von == reservation.Von))).Any();
+            using var context = new AutoReservationContext();
+            return context.Reservationen.Any(r => r.AutoId == reservation.AutoId &&
+            ((r.Von < reservation.Von && r.Bis > reservation.Von)
+            || (r.Von < reservation.Bis && r.Bis > reservation.Bis)
+            || (r.Von == reservation.Von)));
         }
     }
 }

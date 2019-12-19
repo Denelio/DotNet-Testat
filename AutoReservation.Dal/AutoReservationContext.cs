@@ -14,7 +14,11 @@ namespace AutoReservation.Dal
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Auto>().HasDiscriminator<int>("Autoklasse").HasValue<LuxusklasseAuto>(0).HasValue<MittelklasseAuto>(1).HasValue<StandardAuto>(2);
+            modelBuilder.Entity<Auto>()
+                        .HasDiscriminator<int>("Autoklasse")
+                        .HasValue<LuxusklasseAuto>(0)
+                        .HasValue<MittelklasseAuto>(1)
+                        .HasValue<StandardAuto>(2);
         }
     }
 }

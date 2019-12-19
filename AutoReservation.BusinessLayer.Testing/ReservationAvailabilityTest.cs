@@ -40,7 +40,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.False(result);
@@ -64,7 +64,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.False(result);
@@ -86,7 +86,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.False(result);
@@ -108,7 +108,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.False(result);
@@ -130,7 +130,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.True(result);
@@ -152,7 +152,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.True(result);
@@ -174,7 +174,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.True(result);
@@ -196,7 +196,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.True(result);
@@ -218,7 +218,7 @@ namespace AutoReservation.BusinessLayer.Testing
 
             // act
             await _target.Insert(_reservation);
-            bool result = _target.HasColisiion(reservation);
+            bool result = _target.HasCollision(reservation);
 
             // assert
             Assert.True(result);

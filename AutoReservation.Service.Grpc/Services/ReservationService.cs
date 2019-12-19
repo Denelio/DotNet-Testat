@@ -1,9 +1,9 @@
 using AutoReservation.BusinessLayer;
+using AutoReservation.BusinessLayer.Exceptions;
 using AutoReservation.Dal.Entities;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -47,7 +47,15 @@ namespace AutoReservation.Service.Grpc.Services
                 ReservationDto result = reservation.ConvertToDto();
                 return result;
             }
-            catch(Exception e)
+            catch(InvalidDateRangeException e)
+            {
+                throw new RpcException(new Status(StatusCode.OutOfRange, e.Message));
+            }
+            catch (AutoUnavailableException e)
+            {
+                throw new RpcException(new Status(StatusCode.ResourceExhausted, e.Message));
+            }
+            catch(OptimisticConcurrencyException<Reservation> e)
             {
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }
@@ -62,7 +70,15 @@ namespace AutoReservation.Service.Grpc.Services
                 ReservationDto result = reservation.ConvertToDto();
                 return result;
             }
-            catch (Exception e)
+            catch (InvalidDateRangeException e)
+            {
+                throw new RpcException(new Status(StatusCode.OutOfRange, e.Message));
+            }
+            catch (AutoUnavailableException e)
+            {
+                throw new RpcException(new Status(StatusCode.ResourceExhausted, e.Message));
+            }
+            catch (OptimisticConcurrencyException<Reservation> e)
             {
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }
@@ -76,7 +92,7 @@ namespace AutoReservation.Service.Grpc.Services
                 await manager.Delete(request.ConvertToEntity());
                 return new Empty();
             }
-            catch (Exception e)
+            catch (OptimisticConcurrencyException<Reservation> e)
             {
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }

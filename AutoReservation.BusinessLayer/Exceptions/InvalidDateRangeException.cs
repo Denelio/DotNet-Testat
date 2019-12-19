@@ -2,7 +2,7 @@
 
 namespace AutoReservation.BusinessLayer.Exceptions
 {
-    class InvalidDateRangeException : Exception
+    public class InvalidDateRangeException : Exception
     {
     }
 }

@@ -57,9 +57,12 @@ namespace AutoReservation.Service.Grpc.Testing
                 Kunde = kundeDto
             };
             ReservationDto reservation = await _target.InsertAsync(reservationDto);
-            ReservationDto reservationFromDb = await _target.GetByIdAsync(new GetReservationByIdRequest { Id = 5 });
+            //ReservationDto reservationFromDb = await _target.GetByIdAsync(new GetReservationByIdRequest { Id = 5 });
 
-            Assert.Equal(reservation, reservationFromDb);
+            Assert.Equal(reservationDto.Auto, reservation.Auto);
+            Assert.Equal(reservationDto.Kunde, reservation.Kunde);
+            Assert.Equal(reservationDto.Von, reservation.Von);
+            Assert.Equal(reservationDto.Bis, reservation.Bis);
         }
 
         [Fact]
@@ -74,8 +77,9 @@ namespace AutoReservation.Service.Grpc.Testing
         [Fact]
         public async Task UpdateReservationTest()
         {
-            var reservation = await _target.GetByIdAsync(new GetReservationByIdRequest { Id = 1 });
-            reservation.Bis = new DateTime(2100, 1, 11, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
+            var reservation = await _target.GetByIdAsync(new GetReservationByIdRequest { Id = 3 });
+            reservation.Von = new DateTime(2020, 1, 20, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
+            reservation.Bis = new DateTime(2020, 1, 30, 0, 0, 0, DateTimeKind.Utc).ToTimestamp();
             var updatedReservation = await _target.UpdateAsync(reservation);
             Assert.Equal(reservation.Bis, updatedReservation.Bis);
         }
@@ -170,7 +174,7 @@ namespace AutoReservation.Service.Grpc.Testing
             KundeDto kundeDto = await _kundeClient.GetByIdAsync(new GetKundeByIdRequest { Id = 1 });
             ReservationDto reservationDto = new ReservationDto
             {
-                Von = new DateTime(2020, 1, 11, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
+                Von = new DateTime(2020, 1, 10, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 Bis = new DateTime(2020, 1, 12, 0, 0, 0, DateTimeKind.Utc).ToTimestamp(),
                 RowVersion = Google.Protobuf.ByteString.CopyFromUtf8(""),
                 Auto = autoDto,

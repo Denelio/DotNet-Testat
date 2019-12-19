@@ -1,4 +1,5 @@
 using AutoReservation.BusinessLayer;
+using AutoReservation.BusinessLayer.Exceptions;
 using AutoReservation.Dal.Entities;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -46,7 +47,7 @@ namespace AutoReservation.Service.Grpc.Services
                 AutoDto result = auto.ConvertToDto();
                 return result;
             }
-            catch (BusinessLayer.Exceptions.OptimisticConcurrencyException<Auto> e)
+            catch (OptimisticConcurrencyException<Auto> e)
             {
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }
@@ -61,7 +62,7 @@ namespace AutoReservation.Service.Grpc.Services
                 AutoDto result = auto.ConvertToDto();
                 return result;
             }
-            catch (BusinessLayer.Exceptions.OptimisticConcurrencyException<Auto> e)
+            catch (OptimisticConcurrencyException<Auto> e)
             {
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }
@@ -75,7 +76,7 @@ namespace AutoReservation.Service.Grpc.Services
                 await manager.Delete(request.ConvertToEntity());
                 return new Empty();
             }
-            catch (BusinessLayer.Exceptions.OptimisticConcurrencyException<Auto> e)
+            catch (OptimisticConcurrencyException<Auto> e)
             {
                 throw new RpcException(new Status(StatusCode.Aborted, e.Message));
             }

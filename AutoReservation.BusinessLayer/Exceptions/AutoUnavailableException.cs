@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AutoReservation.BusinessLayer.Exceptions
 {
-    class AutoUnavailableException : Exception
+    public class AutoUnavailableException : Exception
     {
     }
 }
